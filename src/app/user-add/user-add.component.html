@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>Benutzer hinzufügen</h2>
+<mat-dialog-content class="mat-typography">
+  <p>Name:</p>
+  <input type="text" cdkFocusInitial [(ngModel)]="username">
+  <p>Password:</p>
+  <input type="password" [(ngModel)]="password">
+  <p>Confirm Password:</p>
+  <input type="password" [(ngModel)]="conf_password">
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Abbrechen</button>
+  <button mat-button  (click)="register()">Speichern</button>
+</mat-dialog-actions>

@@ -1,0 +1,50 @@
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+
+@Component({
+  selector: 'app-construction-site-details',
+  templateUrl: './construction-site-details.component.html',
+  styleUrls: ['./construction-site-details.component.scss']
+})
+export class ConstructionSiteDetailsComponent implements OnInit {
+  cid!: number;
+  site: any[] = [];
+
+  constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router) {}
+
+  ngOnInit(){
+    this.cid = this.route.snapshot.params['cid'];
+    this.getDetails(this.cid);
+  }
+
+  getDetails(cid: number){
+    this.http.get<any[]>('http://localhost:3000/api/data/cdetails?cid=' + cid).subscribe(
+      (response) => {
+        this.site = response;
+        console.log(this.site);
+      },
+      (error) => {
+        console.error("No users found");
+      }
+
+    );
+  }
+
+  delete(cid: number) {
+    if (confirm("Do you want to delete this user?")) {
+    this.http.get('http://localhost:3000/api/data/cdelete?cid=' + cid).subscribe(
+      (response: any) => {
+        console.log('User deleted successfully');
+        this.router.navigate(['/constuctionSite']);
+      },
+      (error) => {
+        console.error('Error deleting user:', error);
+        // Handle errors or show appropriate messages to the user
+      }
+    );
+  }
+
+  }
+
+}
