@@ -20,7 +20,7 @@ export class UserDetailsComponent implements OnInit {
   }
 
   getDetails(uid: number){
-    this.http.get<any[]>('http://localhost:3000/api/data/udetails?uid=' + uid).subscribe(
+    this.http.get<any[]>('http://localhost:3000/api/user/details?uid=' + uid).subscribe(
       (response) => {
         this.user = response;
         console.log(this.user);
@@ -35,7 +35,7 @@ export class UserDetailsComponent implements OnInit {
   delete(uid: number) {
       const uidParam = encodeURIComponent(uid.toString());
       if (confirm("Do you want to delete this user?")) {
-      this.http.get('http://localhost:3000/api/data/delete?uid=' + uidParam).subscribe(
+      this.http.get('http://localhost:3000/api/user/delete?uid=' + uidParam).subscribe(
         (response: any) => {
           console.log('User deleted successfully');
           this.router.navigate(['/users']);

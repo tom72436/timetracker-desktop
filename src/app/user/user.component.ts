@@ -20,7 +20,7 @@ export class UserComponent {
   }
 
   getAll(){
-    this.http.get<any[]>('http://localhost:3000/api/data').subscribe(
+    this.http.get<any[]>('http://localhost:3000/api/users').subscribe(
       (response) => {
         this.users = response;
         console.log(this.users);

@@ -22,7 +22,7 @@ export class UserAddComponent {
       const encodedUsername = encodeURIComponent(this.username);
       const encodedPassword = encodeURIComponent(this.password);
 
-      this.http.get('http://localhost:3000/api/data/register?uname=' + encodedUsername + '&upassword=' + encodedPassword).subscribe(
+      this.http.get('http://localhost:3000/api/user/register?uname=' + encodedUsername + '&upassword=' + encodedPassword).subscribe(
         (response: any) => {
           this.user = response;
           if (this.user) {

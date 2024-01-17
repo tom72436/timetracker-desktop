@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
     const encodedUsername = encodeURIComponent(this.username);
     const encodedPassword = encodeURIComponent(this.password);
 
-    this.http.get('http://localhost:3000/api/data/login?uname=' + encodedUsername + '&upassword=' + encodedPassword).subscribe(
+    this.http.get('http://localhost:3000/api/user/login?uname=' + encodedUsername + '&upassword=' + encodedPassword).subscribe(
       (response) => {
         // Assuming the server sends an array in response
         this.user = response;
