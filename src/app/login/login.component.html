@@ -1,5 +1,34 @@
-<p>Username:</p>
-<input type="text" [(ngModel)]="username">
-<p>Password:</p>
-<input type="password" [(ngModel)]="password">
-<button (click)="getLogin()">Login</button>
+<!-- <div fxLayout="row">
+<div fxFlex="45">
+  <p>Username:</p>
+  <input type="text" [(ngModel)]="username">
+  <p>Password:</p>
+  <input type="password" [(ngModel)]="password">
+  <button (click)="getLogin()">Login</button>
+</div>
+<div fxFlex="55">
+  <img src="./assets/images/login-page.png">
+</div>
+</div> -->
+<img src="./assets/images/login-page.png" class="background-img">
+
+<div class="overlay">
+
+  <img src="./assets/images/logo.gif">
+
+
+  <p class="spacing-text">Welcome to the user administration</p>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Username</mat-label>
+    <input matInput type="text" [(ngModel)]="username">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Password</mat-label>
+    <input matInput type="password" [(ngModel)]="password">
+  </mat-form-field>
+
+  <button mat-button (click)="getLogin()" class="login-button">Login</button>
+
+</div>
