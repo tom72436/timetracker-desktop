@@ -1,11 +1,14 @@
 <app-menu-bar></app-menu-bar>
 
-<button (click)="openDialog()">Baustelle hinzufügen</button>
-<div *ngFor="let site of sites">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title routerLink="/sitedetails/{{site.cid}}">{{site.cname}}</mat-card-title>
-      <mat-card-subtitle routerLink="/sitedetails/{{site.cid}}">{{site.cdescription}}</mat-card-subtitle>
-    </mat-card-header>
-  </mat-card>
-</div>
+<mat-tab-nav-panel #tabPanel>
+  <button (click)="openDialog()">Baustelle hinzufügen</button>
+
+  <div *ngFor="let site of sites">
+    <mat-card>
+      <mat-card-header routerLink="/site-details/{{site.cid}}">
+        <mat-card-title>{{site.cname}}</mat-card-title>
+        <mat-card-subtitle>{{site.cdescription}}</mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+  </div>
+</mat-tab-nav-panel>

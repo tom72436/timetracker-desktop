@@ -1,13 +1,29 @@
-<nav mat-tab-nav-bar backgroundColor="primary" color="accent">
-  <a mat-tab-link routerLink="/users" routerLinkActive #usersTab="routerLinkActive" [active]="usersTab.isActive">
-    Benutzer
-  </a>
-  <a mat-tab-link routerLink="/constuctionSite" routerLinkActive #constuctionSiteTab="routerLinkActive"
-    [active]="constuctionSiteTab.isActive">
-    Baustellen
-  </a>
-  <a mat-tab-link routerLink="/stations" routerLinkActive #stationsTab="routerLinkActive"
-    [active]="stationsTab.isActive">
-    Baustellenübersicht
-  </a>
+<!-- menu bar for the navigation -->
+<nav mat-tab-nav-bar [tabPanel]="tabPanel" backgroundColor="primary" color="accent">
+  <div class="tabs-left">
+    <!-- users tab -->
+    <a mat-tab-link routerLink="/users" routerLinkActive #usersTab="routerLinkActive" [active]="usersTab.isActive">
+      Benutzer
+    </a>
+    <!-- construction site tab -->
+    <a mat-tab-link routerLink="/construction-site" routerLinkActive #constructionSiteTab="routerLinkActive"
+      [active]="constructionSiteTab.isActive">
+      Baustellen
+    </a>
+    <!-- TODO: implement routing to overview page -->
+    <a mat-tab-link routerLink="/construction-site-overview" routerLinkActive #constructionSiteOverviewTab="routerLinkActive"
+      [active]="constructionSiteOverviewTab.isActive">
+      Baustellenübersicht
+    </a>
+  </div>
+  <!-- account button -->
+  <div class="tabs-right">
+    <button mat-tab-link routerLink="/account">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+  </div>
 </nav>
+
+<mat-tab-nav-panel #tabPanel>
+  <router-outlet></router-outlet>
+</mat-tab-nav-panel>

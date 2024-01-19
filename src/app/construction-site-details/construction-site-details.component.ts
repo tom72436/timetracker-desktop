@@ -36,7 +36,7 @@ export class ConstructionSiteDetailsComponent implements OnInit {
     this.http.get('http://localhost:3000/api/construction-sites/delete?cid=' + cid).subscribe(
       (response: any) => {
         console.log('User deleted successfully');
-        this.router.navigate(['/constuctionSite']);
+        this.router.navigate(['/constuction-site']);
       },
       (error) => {
         console.error('Error deleting user:', error);

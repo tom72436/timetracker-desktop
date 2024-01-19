@@ -27,6 +27,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MenuBarComponent } from './menu-bar/menu-bar.component';
+import { AccountComponent } from './account/account.component';
+import { ConstructionSiteOverviewComponent } from './construction-site-overview/construction-site-overview.component';
 
 
 
@@ -40,7 +42,9 @@ import { MenuBarComponent } from './menu-bar/menu-bar.component';
     ConstructionSiteComponent,
     ConstructionSiteDetailsComponent,
     ConstructionSiteAddComponent,
-    MenuBarComponent
+    MenuBarComponent,
+    AccountComponent,
+    ConstructionSiteOverviewComponent
   ],
   imports: [
     BrowserModule,
