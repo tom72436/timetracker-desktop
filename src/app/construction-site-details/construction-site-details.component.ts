@@ -19,7 +19,7 @@ export class ConstructionSiteDetailsComponent implements OnInit {
   }
 
   getDetails(cid: number){
-    this.http.get<any[]>('http://localhost:3000/api/construction-sites/details?cid=' + cid).subscribe(
+    this.http.get<any[]>('http://192.168.153.92:3000/api/construction-sites/details?cid=' + cid).subscribe(
       (response) => {
         this.site = response;
         console.log(this.site);

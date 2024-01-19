@@ -20,7 +20,7 @@ export class UserDetailsComponent implements OnInit {
   }
 
   getDetails(uid: number){
-    this.http.get<any[]>('http://localhost:3000/api/user/details?uid=' + uid).subscribe(
+    this.http.get<any[]>('http://192.168.153.92:3000/api/user/details?uid=' + uid).subscribe(
       (response) => {
         this.user = response;
         console.log(this.user);

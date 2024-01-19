@@ -1,16 +1,4 @@
-<nav mat-tab-nav-bar [tabPanel]="tabPanel" backgroundColor="primary" color="accent">
-  <a mat-tab-link routerLink="/users" routerLinkActive #usersTab="routerLinkActive" [active]="usersTab.isActive">
-    Benutzer
-  </a>
-  <a mat-tab-link routerLink="/constuctionSite" routerLinkActive #constuctionSiteTab="routerLinkActive"
-    [active]="constuctionSiteTab.isActive">
-    Baustellen
-  </a>
-  <a mat-tab-link routerLink="/stations" routerLinkActive #stationsTab="routerLinkActive"
-    [active]="stationsTab.isActive">
-    Baustellenübersicht
-  </a>
-</nav>
-<mat-tab-nav-panel #tabPanel>
+<app-menu-bar></app-menu-bar>
+
 <button (click)="delete(user[0]?.uid)">Benutzer löschen</button>
 <h1>{{user[0]?.uname}}</h1>

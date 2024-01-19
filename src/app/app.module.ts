@@ -26,6 +26,7 @@ import { ConstructionSiteAddComponent } from './construction-site-add/constructi
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MenuBarComponent } from './menu-bar/menu-bar.component';
 
 
 
@@ -38,7 +39,8 @@ import { MatInputModule } from '@angular/material/input';
     UserAddComponent,
     ConstructionSiteComponent,
     ConstructionSiteDetailsComponent,
-    ConstructionSiteAddComponent
+    ConstructionSiteAddComponent,
+    MenuBarComponent
   ],
   imports: [
     BrowserModule,

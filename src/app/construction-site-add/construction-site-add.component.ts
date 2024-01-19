@@ -21,7 +21,7 @@ export class ConstructionSiteAddComponent {
       const encodedUsername = encodeURIComponent(this.username);
       const encodedDescription = encodeURIComponent(this.description);
 
-      this.http.get('http://localhost:3000/api/construction-sites/register?cname=' + encodedUsername + '&cdescription=' + encodedDescription).subscribe(
+      this.http.get('http://192.168.153.92:3000/api/construction-sites/register?cname=' + encodedUsername + '&cdescription=' + encodedDescription).subscribe(
         (response: any) => {
           this.user = response;
           if (this.user) {

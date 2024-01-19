@@ -1,23 +1,11 @@
-<nav mat-tab-nav-bar [tabPanel]="tabPanel" backgroundColor="primary" color="accent">
-  <a mat-tab-link routerLink="/users" routerLinkActive #usersTab="routerLinkActive" [active]="usersTab.isActive">
-    Benutzer
-  </a>
-  <a mat-tab-link routerLink="/constuctionSite" routerLinkActive #constuctionSiteTab="routerLinkActive"
-    [active]="constuctionSiteTab.isActive">
-    Baustellen
-  </a>
-  <a mat-tab-link routerLink="/stations" routerLinkActive #stationsTab="routerLinkActive"
-    [active]="stationsTab.isActive">
-    Baustellenübersicht
-  </a>
-</nav>
-<mat-tab-nav-panel #tabPanel>
+<app-menu-bar></app-menu-bar>
+
 <button (click)="openDialog()">Baustelle hinzufügen</button>
-  <div *ngFor="let site of sites">
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title routerLink="/sitedetails/{{site.cid}}">{{site.cname}}</mat-card-title>
-        <mat-card-subtitle routerLink="/sitedetails/{{site.cid}}">{{site.cdescription}}</mat-card-subtitle>
-      </mat-card-header>
-    </mat-card>
-  </div>
+<div *ngFor="let site of sites">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title routerLink="/sitedetails/{{site.cid}}">{{site.cname}}</mat-card-title>
+      <mat-card-subtitle routerLink="/sitedetails/{{site.cid}}">{{site.cdescription}}</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+</div>

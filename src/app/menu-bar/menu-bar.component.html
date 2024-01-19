@@ -1,0 +1,13 @@
+<nav mat-tab-nav-bar backgroundColor="primary" color="accent">
+  <a mat-tab-link routerLink="/users" routerLinkActive #usersTab="routerLinkActive" [active]="usersTab.isActive">
+    Benutzer
+  </a>
+  <a mat-tab-link routerLink="/constuctionSite" routerLinkActive #constuctionSiteTab="routerLinkActive"
+    [active]="constuctionSiteTab.isActive">
+    Baustellen
+  </a>
+  <a mat-tab-link routerLink="/stations" routerLinkActive #stationsTab="routerLinkActive"
+    [active]="stationsTab.isActive">
+    Baustellenübersicht
+  </a>
+</nav>
