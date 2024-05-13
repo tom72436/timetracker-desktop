@@ -35,13 +35,13 @@ import { DeleteUserComponent } from './delete-user/delete-user.component';
 import { MatPaginatorModule} from '@angular/material/paginator';
 import { MatTableModule} from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
-// import {CookieService} from 'ngx-cookie-service';
+import {CookieService} from 'ngx-cookie-service';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    // LoginComponent,
+    LoginComponent,
     UserComponent,
     UserDetailsComponent,
     UserAddComponent,
@@ -76,7 +76,7 @@ import { MatSortModule } from '@angular/material/sort';
     MatSortModule,
 
   ],
-  // providers: [CookieService],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
