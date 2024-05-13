@@ -20,7 +20,7 @@ export class UserComponent {
   }
 
   getAll(){
-    this.http.get<any[]>('http://192.168.153.92:3000/api/users').subscribe(
+    this.http.get<any[]>('http://192.168.4.92:3000/api/users').subscribe(
       (response) => {
         this.users = response;
         console.log(this.users);

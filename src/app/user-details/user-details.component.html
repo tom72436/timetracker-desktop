@@ -1,5 +1,81 @@
 <mat-tab-nav-panel #tabPanel>
 
-<button (click)="delete(user[0]?.uid)">Benutzer löschen</button>
-<h1>{{user[0]?.uname}}</h1>
+  <button (click)="delete(user[0]?.uid)">Benutzer löschen</button>
+  <h1>{{user[0]?.uname}}</h1>
+
+
+
+<h2>Absenzen</h2>
 </mat-tab-nav-panel>
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="absences" matSort>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="von">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Von </th>
+      <td mat-cell *matCellDef="let absence"> {{absence.avon}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="bis">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Bis </th>
+      <td mat-cell *matCellDef="let absence"> {{absence.abis}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="reason">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Reason </th>
+      <td mat-cell *matCellDef="let absence"> {{absence.areason}} </td>
+    </ng-container>
+
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+  </mat-paginator>
+</div>
+
+
+<h2>Stunden</h2>
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="time" matSort>
+
+    <!-- Date Column -->
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+      <td mat-cell *matCellDef="let time"> {{ time.tdateStart | date:'shortDate' }} </td>
+    </ng-container>
+
+    <!-- Start Time Column -->
+    <ng-container matColumnDef="startTime">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Start Time </th>
+      <td mat-cell *matCellDef="let time"> {{ time.tdateStart | date:'shortTime' }} </td>
+    </ng-container>
+
+    <!-- End Time Column -->
+    <ng-container matColumnDef="endTime">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> End Time </th>
+      <td mat-cell *matCellDef="let time"> {{ time.tdateEnd | date:'shortTime' }} </td>
+    </ng-container>
+
+    <!-- Hours Worked Column -->
+    <ng-container matColumnDef="hoursWorked">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Hours Worked </th>
+      <td mat-cell *matCellDef="let time"> {{ calculateHoursWorked(time.tdateStart, time.tdateEnd) }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Site">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Construction-Site </th>
+      <td mat-cell *matCellDef="let time"> {{ constructionSiteMap.get(time.cid) }} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+  </mat-paginator>
+</div>

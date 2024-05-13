@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ export class LoginComponent implements OnInit {
   username: string = '';
   password: string = '';
 
-  constructor(private http: HttpClient, private router: Router ) {}
+  constructor(private http: HttpClient, private router: Router, private cookieService: CookieService) {}
 
   ngOnInit() {
     this.getLogin();
@@ -23,11 +24,12 @@ export class LoginComponent implements OnInit {
     const encodedUsername = encodeURIComponent(this.username);
     const encodedPassword = encodeURIComponent(this.password);
 
-    this.http.get('http://192.168.153.92:3000/api/user/login?uname=' + encodedUsername + '&upassword=' + encodedPassword).subscribe(
+    this.http.get('http://192.168.4.92:3000/api/user/login?uname=' + encodedUsername + '&upassword=' + encodedPassword).subscribe(
       (response) => {
-        // Assuming the server sends an array in response
+
         this.user = response;
         if (this.user && this.user.message === 'Login successful') {
+          this.cookieService.set('user', this.user.user.uid);
           this.router.navigate(['/users']);
         } else {
           console.log('Invalid username or password');

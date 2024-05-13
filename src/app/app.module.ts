@@ -29,7 +29,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MenuBarComponent } from './menu-bar/menu-bar.component';
 import { AccountComponent } from './account/account.component';
 import { ConstructionSiteOverviewComponent } from './construction-site-overview/construction-site-overview.component';
+import { MatPaginatorModule} from '@angular/material/paginator';
+import { MatTableModule} from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 
+import {CookieService} from 'ngx-cookie-service';
 
 
 @NgModule({
@@ -62,8 +66,12 @@ import { ConstructionSiteOverviewComponent } from './construction-site-overview/
     FlexLayoutModule,
     MatFormFieldModule,
     MatInputModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
