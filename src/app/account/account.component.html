@@ -1,4 +1,29 @@
 <app-menu-bar></app-menu-bar>
+
 <mat-tab-nav-panel #tabPanel>
-  <p>profile</p>
+  <div class="margin">
+    <h1>user1</h1>
+    <button mat-button>Log out</button>
+
+    <div class="center-content">
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Authorized users
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <!-- Panel content-->
+        <p (click)="openDialog('user2')">user2</p>
+        <p (click)="openDialog('user3')">user3</p>
+        <p (click)="openDialog('user4')">user4</p>
+
+        <button mat-button>
+          <mat-icon>add</mat-icon>
+          Add user
+        </button>
+      </mat-expansion-panel>
+    </div>
+  </div>
 </mat-tab-nav-panel>

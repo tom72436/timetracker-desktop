@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ConstructionSiteDetailsComponent implements OnInit {
   cid!: number;
   site: any[] = [];
+  ipAdress: string = '192.168.126.92';
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router) {}
 
@@ -19,7 +20,7 @@ export class ConstructionSiteDetailsComponent implements OnInit {
   }
 
   getDetails(cid: number){
-    this.http.get<any[]>('http://192.168.153.92:3000/api/construction-sites/details?cid=' + cid).subscribe(
+    this.http.get<any[]>(`http://${this.ipAdress}:3000/api/construction-sites/details?cid=${cid}`).subscribe(
       (response) => {
         this.site = response;
         console.log(this.site);
@@ -33,7 +34,7 @@ export class ConstructionSiteDetailsComponent implements OnInit {
 
   delete(cid: number) {
     if (confirm("Do you want to delete this user?")) {
-    this.http.get('http://localhost:3000/api/construction-sites/delete?cid=' + cid).subscribe(
+    this.http.get(`http://${this.ipAdress}:3000/api/construction-sites/delete?cid=${cid}`).subscribe(
       (response: any) => {
         console.log('User deleted successfully');
         this.router.navigate(['/constuction-site']);

@@ -11,6 +11,7 @@ import { UserAddComponent } from '../user-add/user-add.component';
 export class UserComponent {
 
   users: any[] =[];
+  ipAdress: string = '192.168.126.92';
 
   constructor(private http: HttpClient,public dialog: MatDialog) {}
 
@@ -20,7 +21,7 @@ export class UserComponent {
   }
 
   getAll(){
-    this.http.get<any[]>('http://192.168.153.92:3000/api/users').subscribe(
+    this.http.get<any[]>(`http://${this.ipAdress}:3000/api/users`).subscribe(
       (response) => {
         this.users = response;
         console.log(this.users);

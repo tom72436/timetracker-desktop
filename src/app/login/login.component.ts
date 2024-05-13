@@ -11,6 +11,7 @@ export class LoginComponent implements OnInit {
   user: any = [];
   username: string = '';
   password: string = '';
+  ipAdress: string = '192.168.126.92';
 
   constructor(private http: HttpClient, private router: Router ) {}
 
@@ -23,7 +24,7 @@ export class LoginComponent implements OnInit {
     const encodedUsername = encodeURIComponent(this.username);
     const encodedPassword = encodeURIComponent(this.password);
 
-    this.http.get('http://192.168.153.92:3000/api/user/login?uname=' + encodedUsername + '&upassword=' + encodedPassword).subscribe(
+    this.http.get(`http://${this.ipAdress}:3000/api/user/login?uname=${encodedUsername}&upassword=${encodedPassword}`).subscribe(
       (response) => {
         // Assuming the server sends an array in response
         this.user = response;

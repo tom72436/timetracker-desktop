@@ -13,6 +13,7 @@ export class ConstructionSiteAddComponent {
   user: any = [];
   username = '';
   description = '';
+  ipAdress: string = '192.168.126.92';
 
   constructor(private http: HttpClient, private snackBar: MatSnackBar,private dialogRef: MatDialogRef<UserAddComponent>) {}
 
@@ -21,7 +22,7 @@ export class ConstructionSiteAddComponent {
       const encodedUsername = encodeURIComponent(this.username);
       const encodedDescription = encodeURIComponent(this.description);
 
-      this.http.get('http://192.168.153.92:3000/api/construction-sites/register?cname=' + encodedUsername + '&cdescription=' + encodedDescription).subscribe(
+      this.http.get(`http://${this.ipAdress}:3000/api/construction-sites/register?cname=${encodedUsername}&cdescription=${encodedDescription}`).subscribe(
         (response: any) => {
           this.user = response;
           if (this.user) {

@@ -29,7 +29,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MenuBarComponent } from './menu-bar/menu-bar.component';
 import { AccountComponent } from './account/account.component';
 import { ConstructionSiteOverviewComponent } from './construction-site-overview/construction-site-overview.component';
-
+import { MatListModule } from '@angular/material/list';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { DeleteUserComponent } from './delete-user/delete-user.component';
 
 
 @NgModule({
@@ -44,7 +46,8 @@ import { ConstructionSiteOverviewComponent } from './construction-site-overview/
     ConstructionSiteAddComponent,
     MenuBarComponent,
     AccountComponent,
-    ConstructionSiteOverviewComponent
+    ConstructionSiteOverviewComponent,
+    DeleteUserComponent
   ],
   imports: [
     BrowserModule,
@@ -62,6 +65,8 @@ import { ConstructionSiteOverviewComponent } from './construction-site-overview/
     FlexLayoutModule,
     MatFormFieldModule,
     MatInputModule,
+    MatListModule,
+    MatExpansionModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

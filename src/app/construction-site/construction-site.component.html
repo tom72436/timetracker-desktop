@@ -1,7 +1,7 @@
 <app-menu-bar></app-menu-bar>
 
 <mat-tab-nav-panel #tabPanel>
-  <button (click)="openDialog()">Baustelle hinzufügen</button>
+  <button mat-button (click)="openDialog()">Baustelle hinzufügen</button>
 
   <div *ngFor="let site of sites">
     <mat-card>

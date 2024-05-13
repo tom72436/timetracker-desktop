@@ -13,6 +13,8 @@ export class UserAddComponent {
   username = '';
   password = '';
   conf_password = '';
+  ipAdress: string = '192.168.126.92';
+
 
   constructor(private http: HttpClient, private snackBar: MatSnackBar,private dialogRef: MatDialogRef<UserAddComponent>) {}
 
@@ -22,7 +24,7 @@ export class UserAddComponent {
       const encodedUsername = encodeURIComponent(this.username);
       const encodedPassword = encodeURIComponent(this.password);
 
-      this.http.get('http://192.168.153.92:3000/api/user/register?uname=' + encodedUsername + '&upassword=' + encodedPassword).subscribe(
+      this.http.get(`http://${this.ipAdress}:3000/api/user/register?uname=${encodedUsername}&upassword=${encodedPassword}`).subscribe(
         (response: any) => {
           this.user = response;
           if (this.user) {

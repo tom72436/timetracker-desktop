@@ -11,6 +11,7 @@ export class UserDetailsComponent implements OnInit {
 
   uid!: number;
   user: any[]=[];
+  ipAdress: string = '192.168.126.92';
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router) {}
 
@@ -20,7 +21,7 @@ export class UserDetailsComponent implements OnInit {
   }
 
   getDetails(uid: number){
-    this.http.get<any[]>('http://192.168.153.92:3000/api/user/details?uid=' + uid).subscribe(
+    this.http.get<any[]>(`http://${this.ipAdress}:3000/api/user/details?uid=${uid}`).subscribe(
       (response) => {
         this.user = response;
         console.log(this.user);
@@ -35,7 +36,7 @@ export class UserDetailsComponent implements OnInit {
   delete(uid: number) {
       const uidParam = encodeURIComponent(uid.toString());
       if (confirm("Do you want to delete this user?")) {
-      this.http.get('http://localhost:3000/api/user/delete?uid=' + uidParam).subscribe(
+      this.http.get(`http://${this.ipAdress}:3000/api/user/delete?uid=${uidParam}`).subscribe(
         (response: any) => {
           console.log('User deleted successfully');
           this.router.navigate(['/users']);

@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class ConstructionSiteComponent {
   sites: any[] =[];
+  ipAdress: string = '192.168.126.92';
 
   constructor(private http: HttpClient,public dialog: MatDialog) {}
 
@@ -19,7 +20,7 @@ export class ConstructionSiteComponent {
   }
 
   getAll(){
-    this.http.get<any[]>('http://192.168.153.92:3000/api/construction-sites').subscribe(
+    this.http.get<any[]>(`http://${this.ipAdress}:3000/api/construction-sites`).subscribe(
       (response) => {
         this.sites = response;
       },

@@ -1,6 +1,6 @@
 <app-menu-bar></app-menu-bar>
 <mat-tab-nav-panel #tabPanel>
-  <button (click)="openDialog()">Benutzer hinzufügen</button>
+  <button mat-button (click)="openDialog()">Benutzer hinzufügen</button>
 
   <div *ngFor="let user of users">
     <span routerLink="/user-details/{{user.uid}}">{{user.uname}}</span>
