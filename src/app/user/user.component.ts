@@ -22,6 +22,7 @@ export class UserComponent {
 
   getAll(){
     this.http.get<any[]>(`http://${this.ipAdress}:3000/api/users`).subscribe(
+
       (response) => {
         this.users = response;
         console.log(this.users);

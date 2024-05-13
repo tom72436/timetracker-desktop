@@ -32,12 +32,16 @@ import { ConstructionSiteOverviewComponent } from './construction-site-overview/
 import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { DeleteUserComponent } from './delete-user/delete-user.component';
+import { MatPaginatorModule} from '@angular/material/paginator';
+import { MatTableModule} from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+// import {CookieService} from 'ngx-cookie-service';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
+    // LoginComponent,
     UserComponent,
     UserDetailsComponent,
     UserAddComponent,
@@ -67,8 +71,12 @@ import { DeleteUserComponent } from './delete-user/delete-user.component';
     MatInputModule,
     MatListModule,
     MatExpansionModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+
   ],
-  providers: [],
+  // providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

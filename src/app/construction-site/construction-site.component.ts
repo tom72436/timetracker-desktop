@@ -21,6 +21,7 @@ export class ConstructionSiteComponent {
 
   getAll(){
     this.http.get<any[]>(`http://${this.ipAdress}:3000/api/construction-sites`).subscribe(
+
       (response) => {
         this.sites = response;
       },
