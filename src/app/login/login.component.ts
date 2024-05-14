@@ -25,13 +25,8 @@ export class LoginComponent implements OnInit {
     const encodedUsername = encodeURIComponent(this.username);
     const encodedPassword = encodeURIComponent(this.password);
 
-<<<<<<< HEAD
     this.http.get(`http://${this.ipAdress}:3000/api/user/login?uname=${encodedUsername}&upassword=${encodedPassword}`).subscribe(
-=======
-    this.http.get('http://192.168.4.92:3000/api/user/login?uname=' + encodedUsername + '&upassword=' + encodedPassword).subscribe(
->>>>>>> 95ae25498fac48704a9a34c2142df137a0d13302
       (response) => {
-
         this.user = response;
         if (this.user && this.user.message === 'Login successful') {
           this.cookieService.set('user', this.user.user.uid);

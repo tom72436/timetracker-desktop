@@ -60,7 +60,7 @@ export class UserDetailsComponent implements OnInit {
 
   getAbsences(uid: number){
     const uidParam = encodeURIComponent(uid.toString());
-    this.http.get('http://192.168.4.92:3000/api/user/absences?uid=' + uidParam).subscribe(
+    this.http.get(`http://${this.ipAdress}:3000/api/user/absences?uid=${uidParam}`).subscribe(
       (response: any) => {
         this.absences = response;
         console.log(this.absences)
@@ -74,7 +74,7 @@ export class UserDetailsComponent implements OnInit {
 
   getTime(uid: number) {
     const uidParam = encodeURIComponent(uid.toString());
-    this.http.get('http://192.168.4.92:3000/api/timetracking/getAll?uid=' + uidParam).subscribe(
+    this.http.get(`http://${this.ipAdress}:3000/api/timetracking/getAll?uid=${uidParam}`).subscribe(
       (response: any) => {
         this.time = response;
         // Extract unique cids
@@ -102,6 +102,6 @@ export class UserDetailsComponent implements OnInit {
 
   getConstructionSite(cid: number): Observable<any[]> {
     const cidParam = encodeURIComponent(cid.toString());
-    return this.http.get<any[]>('http://192.168.4.92:3000/api/construction-sites/details?cid=' + cidParam);
+    return this.http.get<any[]>(`http://${this.ipAdress}:3000/api/construction-sites/details?cid=${cidParam}`);
   }
 }

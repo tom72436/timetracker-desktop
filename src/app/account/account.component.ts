@@ -1,36 +1,28 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
-<<<<<<< HEAD
-import { Inject} from '@angular/core';
-import {MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
-import {NgIf} from '@angular/common';
-import {MatButtonModule} from '@angular/material/button';
-import {FormsModule} from '@angular/forms';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { Component, OnInit } from '@angular/core';
+import {MatDialog } from '@angular/material/dialog';
 import { DeleteUserComponent } from '../delete-user/delete-user.component';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 export interface DialogData {
   animal: string;
   name: string;
   id: any;
 }
-=======
-import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
->>>>>>> 95ae25498fac48704a9a34c2142df137a0d13302
 
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.scss']
 })
-export class AccountComponent {
-<<<<<<< HEAD
+export class AccountComponent implements OnInit {
   animal: string | undefined;
   name: string | undefined;
+  user!: any[];
 
-  constructor(public dialog: MatDialog) {}
+
+  constructor(public dialog: MatDialog, private cs: CookieService, private http: HttpClient, private router: Router) {}
 
   openDialog(id: string): void {
     const dialogRef = this.dialog.open(DeleteUserComponent, {
@@ -40,10 +32,9 @@ export class AccountComponent {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
-=======
-  user!: any[];
+  }
 
-  constructor(private cs: CookieService, private http: HttpClient, private router: Router) {}
+
 
   ngOnInit() {
     this.getDetails(this.cs.get('user'));
@@ -63,6 +54,5 @@ export class AccountComponent {
   logout() {
     this.router.navigate(['/']);
     this.cs.deleteAll();
->>>>>>> 95ae25498fac48704a9a34c2142df137a0d13302
   }
 }

@@ -21,12 +21,7 @@ export class ConstructionSiteAddComponent {
     if (this.username && this.description) {
       const encodedUsername = encodeURIComponent(this.username);
       const encodedDescription = encodeURIComponent(this.description);
-
-<<<<<<< HEAD
       this.http.get(`http://${this.ipAdress}:3000/api/construction-sites/register?cname=${encodedUsername}&cdescription=${encodedDescription}`).subscribe(
-=======
-      this.http.get('http://192.168.4.92:3000/api/construction-sites/register?cname=' + encodedUsername + '&cdescription=' + encodedDescription).subscribe(
->>>>>>> 95ae25498fac48704a9a34c2142df137a0d13302
         (response: any) => {
           this.user = response;
           if (this.user) {

@@ -20,11 +20,7 @@ export class ConstructionSiteDetailsComponent implements OnInit {
   }
 
   getDetails(cid: number){
-<<<<<<< HEAD
     this.http.get<any[]>(`http://${this.ipAdress}:3000/api/construction-sites/details?cid=${cid}`).subscribe(
-=======
-    this.http.get<any[]>('http://192.168.4.92:3000/api/construction-sites/details?cid=' + cid).subscribe(
->>>>>>> 95ae25498fac48704a9a34c2142df137a0d13302
       (response) => {
         this.site = response;
         console.log(this.site);
@@ -38,11 +34,7 @@ export class ConstructionSiteDetailsComponent implements OnInit {
 
   delete(cid: number) {
     if (confirm("Do you want to delete this user?")) {
-<<<<<<< HEAD
     this.http.get(`http://${this.ipAdress}:3000/api/construction-sites/delete?cid=${cid}`).subscribe(
-=======
-    this.http.get('http://192.168.4.92:3000/api/construction-sites/delete?cid=' + cid).subscribe(
->>>>>>> 95ae25498fac48704a9a34c2142df137a0d13302
       (response: any) => {
         console.log('User deleted successfully');
         this.router.navigate(['/constuction-site']);
