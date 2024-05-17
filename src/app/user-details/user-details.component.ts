@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 export class UserDetailsComponent implements OnInit {
   uid!: number;
   user: any[]=[];
-  ipAdress: string = '192.168.126.92';
+  ipAdress: string = '192.168.120.92';
   absences!: any[];
   displayedColumns: string[] = ['von', 'bis', 'reason'];
   displayedColumns2: string[] = ['date', 'startTime', 'endTime', 'hoursWorked', 'Site'];

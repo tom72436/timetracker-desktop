@@ -1,9 +1,9 @@
 <app-menu-bar></app-menu-bar>
 
 <mat-tab-nav-panel #tabPanel>
-  <div class="margin">
-    <h1>user1</h1>
-    <button mat-button>Log out</button>
+  <div class="margin" *ngIf="user">
+    <h1>{{user[0]?.uname}}</h1>
+    <button mat-button (click)="logout()">Log out</button>
 
     <div class="center-content">
 
@@ -12,20 +12,20 @@
           <mat-panel-title>
             Authorized users
           </mat-panel-title>
-        </mat-expansion-panel-header>
+        </mat-expansion-panel-header >
 
         <!-- Panel content-->
-        <p (click)="openDialog('user2')">user2</p>
-        <p (click)="openDialog('user3')">user3</p>
-        <p (click)="openDialog('user4')">user4</p>
+        <div *ngIf="authUsers">
+          <div *ngFor="let user of authUsers">
+            <p (click)="openDialog(user.uname)">{{user.uname}}</p>
+          </div>
+        </div>
 
-        <button mat-button>
+        <button mat-button (click)="openUserDialog(true)">
           <mat-icon>add</mat-icon>
           Add user
         </button>
       </mat-expansion-panel>
     </div>
   </div>
-  <h1>{{user[0]?.uname}}</h1>
-  <button (click)="logout()">Logout</button>
 </mat-tab-nav-panel>

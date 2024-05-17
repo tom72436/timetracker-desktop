@@ -11,7 +11,7 @@ import { UserAddComponent } from '../user-add/user-add.component';
 export class UserComponent {
 
   users: any[] =[];
-  ipAdress: string = '192.168.126.92';
+  ipAdress: string = '192.168.120.92';
 
   constructor(private http: HttpClient,public dialog: MatDialog) {}
 
@@ -34,7 +34,9 @@ export class UserComponent {
     );
   }
   openDialog() {
-    const dialogRef = this.dialog.open(UserAddComponent);
+    const dialogRef = this.dialog.open(UserAddComponent, {
+      data: { auth: 0 }
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);

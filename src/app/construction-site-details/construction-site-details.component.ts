@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ConstructionSiteDetailsComponent implements OnInit {
   cid!: number;
   site: any[] = [];
-  ipAdress: string = '192.168.126.92';
+  ipAdress: string = '192.168.120.92';
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router) {}
 

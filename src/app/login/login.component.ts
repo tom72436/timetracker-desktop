@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit {
   user: any = [];
   username: string = '';
   password: string = '';
-  ipAdress: string = '192.168.126.92';
+  ipAdress: string = '192.168.120.92';
 
   constructor(private http: HttpClient, private router: Router, private cookieService: CookieService) {}
 
@@ -28,12 +28,18 @@ export class LoginComponent implements OnInit {
     this.http.get(`http://${this.ipAdress}:3000/api/user/login?uname=${encodedUsername}&upassword=${encodedPassword}`).subscribe(
       (response) => {
         this.user = response;
-        if (this.user && this.user.message === 'Login successful') {
-          this.cookieService.set('user', this.user.user.uid);
-          this.router.navigate(['/users']);
+         if (this.user.user.uauth == 1) {
+          if (this.user && this.user.message === 'Login successful') {
+            console.log()
+            this.cookieService.set('user', this.user.user.uid);
+            this.router.navigate(['/users']);
+          } else {
+            console.log('Invalid username or password');
+          }
         } else {
-          console.log('Invalid username or password');
+          console.log('Auth error');
         }
+
       },
       (error) => {
         console.error('Error fetching data:', error);
