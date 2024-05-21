@@ -1,4 +1,6 @@
 <app-menu-bar></app-menu-bar>
 <mat-tab-nav-panel #tabPanel>
-  <p>overview</p>
+  <div>
+    <ngx-datatable  class="bootstrap" [rows]="rows" [columns]="columns"> </ngx-datatable>
+  </div>
 </mat-tab-nav-panel>

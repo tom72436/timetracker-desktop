@@ -17,7 +17,7 @@
         <!-- Panel content-->
         <div *ngIf="authUsers">
           <div *ngFor="let user of authUsers">
-            <p (click)="openDialog(user.uname)">{{user.uname}}</p>
+            <p (click)="delete(user.uid)">{{user.uname}}</p>
           </div>
         </div>
 

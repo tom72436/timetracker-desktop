@@ -21,6 +21,7 @@
     "@angular/platform-browser": "^16.0.0",
     "@angular/platform-browser-dynamic": "^16.0.0",
     "@angular/router": "^16.0.0",
+    "@swimlane/ngx-datatable": "^20.1.0",
     "datatables.net-bs4": "^1.13.8",
     "jquery": "^3.7.1",
     "ngx-cookie-service": "^17.1.0",

@@ -76,7 +76,25 @@ export class AccountComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      window.location.reload();
       console.log(`Dialog result: ${result}`);
     });
   }
+
+  delete(uid: number) {
+    const uidParam = encodeURIComponent(uid.toString());
+    if (confirm("Do you want to delete this user?")) {
+    this.http.get(`http://${this.ipAddress}:3000/api/user/delete?uid=${uidParam}`).subscribe(
+
+      (response: any) => {
+        console.log('User deleted successfully');
+        window.location.reload();
+      },
+      (error) => {
+        console.error('Error deleting user:', error);
+        // Handle errors or show appropriate messages to the user
+      }
+    );
+  }
+}
 }
