@@ -1,7 +1,8 @@
+<app-menu-bar></app-menu-bar>
 <mat-tab-nav-panel #tabPanel>
-  <button (click)="delete(user[0]?.uid)">Benutzer löschen</button>
-  <h1>{{user[0]?.uname}}</h1>
 
+  <h1>{{user[0]?.uname}}</h1>
+  <button (click)="delete(user[0]?.uid)">Benutzer löschen</button>
   <h2>Absenzen</h2>
 </mat-tab-nav-panel>
 
@@ -27,7 +28,8 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
-  <mat-paginator #paginatorAbsences [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+  <mat-paginator #paginatorAbsences [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+    aria-label="Select page of periodic elements">
   </mat-paginator>
 </div>
 
@@ -65,6 +67,7 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
   </table>
 
-  <mat-paginator #paginatorTime [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+  <mat-paginator #paginatorTime [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+    aria-label="Select page of periodic elements">
   </mat-paginator>
 </div>
