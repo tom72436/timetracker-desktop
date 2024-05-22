@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, forkJoin, tap } from 'rxjs';
 
 @Component({
   selector: 'app-construction-site-details',
@@ -14,14 +13,13 @@ export class ConstructionSiteDetailsComponent implements OnInit {
   ipAdress: string = '192.168.120.92';
   users!: any[];
   rows: any[] = [];
-  sites: any[] = [];
   columns: any[] = [];
   time: any[] = [];
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router) {}
 
   ngOnInit() {
-    this.cid = this.route.snapshot.params['cid'];
+    this.cid = parseInt(this.route.snapshot.params['cid'], 10);
     console.log('CID:', this.cid);
     this.getDetails(this.cid);
     this.getUsersAndSites();
@@ -97,23 +95,22 @@ export class ConstructionSiteDetailsComponent implements OnInit {
     console.log('Creating rows');
     console.log('Time data:', this.time);
 
-    // Filter time data for the current construction site
-    const filteredTime: any[] = [];
-    this.time.forEach(time => {
-      if (time.cid == this.cid) {
-        filteredTime.push(time);
-      }
+    // Ensure correct filtering
+    const filteredTime = this.time.filter(time => {
+      console.log(`Checking time entry: cid=${time.cid}, expected cid=${this.cid}, result=${time.cid === this.cid}`);
+      return parseInt(time.cid, 10) === this.cid;
     });
+
     console.log('Filtered time data:', filteredTime);
 
-    // Extract unique dates from the filtered time data
-    const dates = filteredTime.map(t => new Date(t.tdateStart).toISOString().split('T')[0]);
-    console.log('Dates:', dates);
-
-    const uniqueDates = Array.from(new Set(dates));
+    const uniqueDatesSet = new Set();
+    for (const time of filteredTime) {
+      const date = new Date(time.tdateStart).toISOString().split('T')[0];
+      uniqueDatesSet.add(date);
+    }
+    const uniqueDates = Array.from(uniqueDatesSet);
     console.log('Unique dates:', uniqueDates);
 
-    // Create rows based on unique dates
     this.rows = uniqueDates.map(date => ({
       date: date,
       dailySum: '',
@@ -146,37 +143,43 @@ export class ConstructionSiteDetailsComponent implements OnInit {
 
   calculateHoursForUserAndDate(uid: number, date: string): string {
     console.log(`Calculating hours for user ${uid} on date ${date}`);
-    console.log("Time data:", this.time); // Log the entire time data
-    const userTimes: any[] = this.time.filter(time => {
-        const timeDate = new Date(time.tdateStart).toISOString().split('T')[0];
-        console.log("Time entry date:", timeDate); // Log the date of each time entry
-        return time.uid === uid && time.cid === this.cid && timeDate === date;
-    });
+    const userTimes = [];
+    for (const time of this.time) {
+      const timeDate = new Date(time.tdateStart).toISOString().split('T')[0];
+      console.log(`Checking time entry: uid=${time.uid}, cid=${time.cid}, tdateStart=${timeDate}, expected uid=${uid}, expected cid=${this.cid}, expected date=${date}`);
+      if (time.uid === uid && time.cid === this.cid && timeDate === date) {
+        userTimes.push(time);
+      }
+    }
     console.log(`User times for user ${uid} on date ${date}:`, userTimes);
 
     const totalMilliseconds = userTimes.reduce((sum, time) => {
-        const start = new Date(time.tdateStart).getTime();
-        const end = new Date(time.tdateEnd).getTime();
-        return sum + (end - start);
+      const start = new Date(time.tdateStart).getTime();
+      const end = new Date(time.tdateEnd).getTime();
+      return sum + (end - start);
     }, 0);
     return this.formatMilliseconds(totalMilliseconds);
-}
+  }
 
-calculateHoursForUserAndMonth(uid: number, month: string): string {
+  calculateHoursForUserAndMonth(uid: number, month: string): string {
     console.log(`Calculating hours for user ${uid} in month ${month}`);
-    const userTimes: any[] = this.time.filter(time => {
-        const timeMonth = new Date(time.tdateStart).toISOString().split('T')[0].substring(0, 7);
-        return time.uid === uid && time.cid === this.cid && timeMonth === month;
-    });
+    const userTimes = [];
+    for (const time of this.time) {
+      const timeMonth = new Date(time.tdateStart).toISOString().split('T')[0].substring(0, 7);
+      console.log(`Checking time entry: uid=${time.uid}, cid=${time.cid}, tdateStart=${timeMonth}, expected uid=${uid}, expected cid=${this.cid}, expected month=${month}`);
+      if (time.uid === uid && time.cid === this.cid && timeMonth === month) {
+        userTimes.push(time);
+      }
+    }
     console.log(`User times for user ${uid} in month ${month}:`, userTimes);
 
     const totalMilliseconds = userTimes.reduce((sum, time) => {
-        const start = new Date(time.tdateStart).getTime();
-        const end = new Date(time.tdateEnd).getTime();
-        return sum + (end - start);
+      const start = new Date(time.tdateStart).getTime();
+      const end = new Date(time.tdateEnd).getTime();
+      return sum + (end - start);
     }, 0);
     return this.formatMilliseconds(totalMilliseconds);
-}
+  }
 
   formatMilliseconds(milliseconds: number): string {
     const hours = Math.floor(milliseconds / (1000 * 60 * 60));
@@ -185,7 +188,9 @@ calculateHoursForUserAndMonth(uid: number, month: string): string {
   }
 
   parseHours(formattedString: string): number {
-    const [hours, minutes] = formattedString.split(' hours ').map(str => parseInt(str, 10));
+    const [hoursPart, minutesPart] = formattedString.split(' hours ');
+    const hours = parseInt(hoursPart, 10);
+    const minutes = parseInt(minutesPart.split(' minutes')[0], 10);
     return (hours * 60) + minutes;
   }
 }
