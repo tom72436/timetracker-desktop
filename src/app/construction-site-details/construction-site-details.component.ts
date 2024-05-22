@@ -16,11 +16,10 @@ export class ConstructionSiteDetailsComponent implements OnInit {
   columns: any[] = [];
   time: any[] = [];
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
     this.cid = parseInt(this.route.snapshot.params['cid'], 10);
-    console.log('CID:', this.cid);
     this.getDetails(this.cid);
     this.getUsersAndSites();
   }
@@ -29,7 +28,7 @@ export class ConstructionSiteDetailsComponent implements OnInit {
     this.http.get<any[]>(`http://${this.ipAdress}:3000/api/construction-sites/details?cid=${cid}`).subscribe(
       (response) => {
         this.site = response;
-        console.log('Site details:', this.site);
+
       },
       (error) => {
         console.error("Error fetching site details:", error);
@@ -41,7 +40,7 @@ export class ConstructionSiteDetailsComponent implements OnInit {
     if (confirm("Do you want to delete this site?")) {
       this.http.get(`http://${this.ipAdress}:3000/api/construction-sites/delete?cid=${cid}`).subscribe(
         (response: any) => {
-          console.log('Site deleted successfully');
+
           this.router.navigate(['/construction-site']);
         },
         (error) => {
@@ -55,13 +54,13 @@ export class ConstructionSiteDetailsComponent implements OnInit {
     this.http.get<any[]>(`http://${this.ipAdress}:3000/api/users`).subscribe(
       (usersResponse) => {
         this.users = usersResponse;
-        console.log('Users:', this.users);
+
         this.createColumns();
 
         this.http.get<any[]>(`http://${this.ipAdress}:3000/api/timetracking/getAllAll`).subscribe(
           (timeResponse) => {
             this.time = timeResponse;
-            console.log('Time data:', this.time);
+
             if (this.time && this.time.length > 0) {
               this.createRows();
               this.calculateUserHours();
@@ -81,27 +80,26 @@ export class ConstructionSiteDetailsComponent implements OnInit {
   }
 
   createColumns() {
-    console.log('Creating columns');
+
     this.columns = [{ prop: 'date', name: 'Date' }];
     this.users.forEach((user, index) => {
       this.columns.push({ prop: `user${index}`, name: `${user.uname}` });
     });
     this.columns.push({ prop: 'dailySum', name: 'Daily Sum' });
     this.columns.push({ prop: 'monthlySum', name: 'Monthly Sum' });
-    console.log('Columns:', this.columns);
+
   }
 
   createRows() {
-    console.log('Creating rows');
-    console.log('Time data:', this.time);
+
 
     // Ensure correct filtering
     const filteredTime = this.time.filter(time => {
-      console.log(`Checking time entry: cid=${time.cid}, expected cid=${this.cid}, result=${time.cid === this.cid}`);
+
       return parseInt(time.cid, 10) === this.cid;
     });
 
-    console.log('Filtered time data:', filteredTime);
+
 
     const uniqueDatesSet = new Set();
     for (const time of filteredTime) {
@@ -109,18 +107,17 @@ export class ConstructionSiteDetailsComponent implements OnInit {
       uniqueDatesSet.add(date);
     }
     const uniqueDates = Array.from(uniqueDatesSet);
-    console.log('Unique dates:', uniqueDates);
+
 
     this.rows = uniqueDates.map(date => ({
       date: date,
       dailySum: '',
       monthlySum: ''
     }));
-    console.log('Rows:', this.rows);
+
   }
 
   calculateUserHours() {
-    console.log('Calculating user hours');
     this.rows.forEach(row => {
       const date = row.date;
       const month = date.substring(0, 7);
@@ -138,20 +135,19 @@ export class ConstructionSiteDetailsComponent implements OnInit {
       row.dailySum = `${Math.floor(dailySum / 60)} hours ${dailySum % 60} minutes`;
       row.monthlySum = `${Math.floor(monthlySum / 60)} hours ${monthlySum % 60} minutes`;
     });
-    console.log('Rows with calculated hours:', this.rows);
+
   }
 
   calculateHoursForUserAndDate(uid: number, date: string): string {
-    console.log(`Calculating hours for user ${uid} on date ${date}`);
+
     const userTimes = [];
     for (const time of this.time) {
       const timeDate = new Date(time.tdateStart).toISOString().split('T')[0];
-      console.log(`Checking time entry: uid=${time.uid}, cid=${time.cid}, tdateStart=${timeDate}, expected uid=${uid}, expected cid=${this.cid}, expected date=${date}`);
       if (time.uid === uid && time.cid === this.cid && timeDate === date) {
         userTimes.push(time);
       }
     }
-    console.log(`User times for user ${uid} on date ${date}:`, userTimes);
+
 
     const totalMilliseconds = userTimes.reduce((sum, time) => {
       const start = new Date(time.tdateStart).getTime();
@@ -162,16 +158,16 @@ export class ConstructionSiteDetailsComponent implements OnInit {
   }
 
   calculateHoursForUserAndMonth(uid: number, month: string): string {
-    console.log(`Calculating hours for user ${uid} in month ${month}`);
+
     const userTimes = [];
     for (const time of this.time) {
       const timeMonth = new Date(time.tdateStart).toISOString().split('T')[0].substring(0, 7);
-      console.log(`Checking time entry: uid=${time.uid}, cid=${time.cid}, tdateStart=${timeMonth}, expected uid=${uid}, expected cid=${this.cid}, expected month=${month}`);
+
       if (time.uid === uid && time.cid === this.cid && timeMonth === month) {
         userTimes.push(time);
       }
     }
-    console.log(`User times for user ${uid} in month ${month}:`, userTimes);
+
 
     const totalMilliseconds = userTimes.reduce((sum, time) => {
       const start = new Date(time.tdateStart).getTime();
