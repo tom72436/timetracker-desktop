@@ -158,13 +158,14 @@ export class ConstructionSiteDetailsComponent implements OnInit {
   formatMilliseconds(milliseconds: number): string {
     const hours = Math.floor(milliseconds / (1000 * 60 * 60));
     const minutes = Math.floor((milliseconds % (1000 * 60 * 60)) / (1000 * 60));
-    return `${hours} hours ${minutes} minutes`;
+    return `${hours} h ${minutes} min`;
   }
 
   parseHours(formattedString: string): number {
-    const [hoursPart, minutesPart] = formattedString.split(' hours ');
+    const [hoursPart, minutesPart] = formattedString.split(' h ');
     const hours = parseInt(hoursPart, 10);
-    const minutes = parseInt(minutesPart.split(' minutes')[0], 10);
+    const minutes = parseInt(minutesPart.split(' min')[0], 10);
     return (hours * 60) + minutes;
   }
+
 }

@@ -119,7 +119,7 @@ export class ConstructionSiteOverviewComponent implements OnInit {
   formatMilliseconds(milliseconds: number): string {
     const hours = Math.floor(milliseconds / (1000 * 60 * 60));
     const minutes = Math.floor((milliseconds % (1000 * 60 * 60)) / (1000 * 60));
-    return `${hours} hours ${minutes} minutes`;
+    return `${hours} h ${minutes} min`;
   }
 
   getConstructionSite(cid: number): Observable<any[]> {
