@@ -11,12 +11,12 @@
 
         <ng-container matColumnDef="von">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> From </th>
-          <td mat-cell *matCellDef="let absence"> {{ absence.avon | date: 'dd.MM.yyyy HH:mm' }} </td>
+          <td mat-cell *matCellDef="let absence"> {{ absence.abis | date: 'dd.MM.yyyy HH:mm' }} </td>
         </ng-container>
 
         <ng-container matColumnDef="bis">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> To </th>
-          <td mat-cell *matCellDef="let absence"> {{ absence.abis | date: 'dd.MM.yyyy HH:mm' }} </td>
+          <td mat-cell *matCellDef="let absence"> {{ absence.avon | date: 'dd.MM.yyyy HH:mm' }} </td>
         </ng-container>
 
         <ng-container matColumnDef="reason">
