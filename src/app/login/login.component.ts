@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit {
   user: any = [];
   username: string = '';
   password: string = '';
-  ipAdress: string = '192.168.120.92';
+  ipAdress: string = 'localhost';
 
   constructor(private http: HttpClient, private router: Router, private cookieService: CookieService) {}
 

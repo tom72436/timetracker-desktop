@@ -16,7 +16,10 @@ export class ConstructionSiteOverviewComponent implements OnInit {
   dataSource = new MatTableDataSource<any>([]);
   users!: any[];
   sites: any[] = [];
-  ipAdress: string = '192.168.120.92';
+  ipAdress: string = 'localhost';
+  rows: any[] = [];
+  columns: any[] = [{ prop: 'siteName', name: 'Site Name' }, { prop: 'summe', name: 'Summe' }];
+  constructionSiteMap: Map<number, string> = new Map();
   time: any[] = [];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

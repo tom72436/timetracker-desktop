@@ -13,7 +13,7 @@ export class ConstructionSiteAddComponent {
   user: any = [];
   username = '';
   description = '';
-  ipAdress: string = '192.168.120.92';
+  ipAdress: string = 'localhost';
 
   constructor(private http: HttpClient, private snackBar: MatSnackBar,private dialogRef: MatDialogRef<UserAddComponent>) {}
 

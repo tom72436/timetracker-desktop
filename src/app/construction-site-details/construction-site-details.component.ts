@@ -12,7 +12,7 @@ import { MatTableDataSource } from '@angular/material/table';
 export class ConstructionSiteDetailsComponent implements OnInit {
   cid!: number;
   site: any[] = [];
-  ipAdress: string = '192.168.120.92';
+  ipAdress: string = 'localhost';
   users!: any[];
   columns: any[] = [];
   time: any[] = [];
