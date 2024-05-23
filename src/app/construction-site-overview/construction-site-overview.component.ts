@@ -12,7 +12,7 @@ import { tap } from 'rxjs/operators';
 export class ConstructionSiteOverviewComponent implements OnInit {
   users!: any[];
   sites: any[] = [];
-  ipAdress: string = '192.168.120.92';
+  ipAdress: string = 'localhost';
   rows: any[] = [];
   columns: any[] = [{ prop: 'siteName', name: 'Site Name' }, { prop: 'summe', name: 'Summe' }];
   constructionSiteMap: Map<number, string> = new Map();

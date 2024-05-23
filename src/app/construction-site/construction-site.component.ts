@@ -10,7 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class ConstructionSiteComponent {
   sites: any[] =[];
-  ipAdress: string = '192.168.120.92';
+  ipAdress: string = 'localhost';
 
   constructor(private http: HttpClient,public dialog: MatDialog) {}
 

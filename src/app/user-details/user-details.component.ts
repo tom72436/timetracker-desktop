@@ -14,7 +14,7 @@ import { Observable } from 'rxjs';
 export class UserDetailsComponent implements OnInit {
   uid!: number;
   user: any[] = [];
-  ipAdress: string = '192.168.120.92';
+  ipAdress: string = 'localhost';
   absencesDataSource = new MatTableDataSource<any>([]);
   timeDataSource = new MatTableDataSource<any>([]);
   displayedColumns: string[] = ['von', 'bis', 'reason'];

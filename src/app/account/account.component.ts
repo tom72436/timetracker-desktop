@@ -22,7 +22,7 @@ export class AccountComponent implements OnInit {
   name: string | undefined;
   user!: any[];
   authUsers!: any[];
-  ipAddress: string = "192.168.120.92";
+  ipAddress: string = 'localhost';
 
 
   constructor(public dialog: MatDialog, private cs: CookieService, private http: HttpClient, private router: Router) { }

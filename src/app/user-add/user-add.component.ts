@@ -13,7 +13,7 @@ export class UserAddComponent {
   username = '';
   password = '';
   conf_password = '';
-  ipAdress: string = '192.168.120.92';
+  ipAdress: string = 'localhost';
 
 
   constructor(private http: HttpClient, private snackBar: MatSnackBar, private dialogRef: MatDialogRef<UserAddComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
