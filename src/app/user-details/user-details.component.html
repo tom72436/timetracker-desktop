@@ -1,73 +1,74 @@
 <app-menu-bar></app-menu-bar>
 <mat-tab-nav-panel #tabPanel>
+  <div class="container">
 
-  <h1>{{user[0]?.uname}}</h1>
-  <button (click)="delete(user[0]?.uid)">Benutzer löschen</button>
-  <h2>Absenzen</h2>
+    <h1>Employee: {{user[0]?.uname}}</h1>
+    <button mat-button (click)="delete(user[0]?.uid)">Delete employee</button>
+    <h2 style="margin-top: 10px;">Absences</h2>
+
+    <div class="mat-elevation-z8" style="margin-top: 12px; margin-bottom: 16px;">
+      <table mat-table [dataSource]="absencesDataSource" matSort>
+
+        <ng-container matColumnDef="von">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> From </th>
+          <td mat-cell *matCellDef="let absence"> {{ absence.avon | date: 'dd.MM.yyyy HH:mm' }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="bis">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> To </th>
+          <td mat-cell *matCellDef="let absence"> {{ absence.abis | date: 'dd.MM.yyyy HH:mm' }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="reason">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Reason </th>
+          <td mat-cell *matCellDef="let absence"> {{ absence.areason }} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator #paginatorAbsences [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+        aria-label="Select page of periodic elements">
+      </mat-paginator>
+    </div>
+
+    <h2 style="margin-top: 10px;">Hours worked</h2>
+    <div class="mat-elevation-z8" style="margin-top: 12px; margin-bottom: 16px;">
+      <table mat-table [dataSource]="timeDataSource" matSort>
+
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+          <td mat-cell *matCellDef="let time"> {{ time.tdateStart | date:'dd.MM.yyyy' }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="startTime">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Start time </th>
+          <td mat-cell *matCellDef="let time"> {{ time.tdateStart | date:'HH:mm' }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="endTime">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> End time </th>
+          <td mat-cell *matCellDef="let time"> {{ time.tdateEnd | date:'HH:mm' }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="hoursWorked">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Totally </th>
+          <td mat-cell *matCellDef="let time"> {{ calculateHoursWorked(time.tdateStart, time.tdateEnd) }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Site">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Construction site </th>
+          <td mat-cell *matCellDef="let time"> {{ constructionSiteMap.get(time.cid) }} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+      </table>
+
+      <mat-paginator #paginatorTime [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+        aria-label="Select page of periodic elements">
+      </mat-paginator>
+    </div>
+  </div>
 </mat-tab-nav-panel>
-
-<div class="mat-elevation-z8">
-  <table mat-table [dataSource]="absencesDataSource" matSort>
-
-    <ng-container matColumnDef="von">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Von </th>
-      <td mat-cell *matCellDef="let absence"> {{ absence.avon | date: 'dd.MM.yyyy HH:mm' }} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="bis">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Bis </th>
-      <td mat-cell *matCellDef="let absence"> {{ absence.abis | date: 'dd.MM.yyyy HH:mm' }} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="reason">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Reason </th>
-      <td mat-cell *matCellDef="let absence"> {{ absence.areason }} </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-
-  <mat-paginator #paginatorAbsences [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
-    aria-label="Select page of periodic elements">
-  </mat-paginator>
-</div>
-
-
-<h2>Stunden</h2>
-<div class="mat-elevation-z8">
-  <table mat-table [dataSource]="timeDataSource" matSort>
-
-    <ng-container matColumnDef="date">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
-      <td mat-cell *matCellDef="let time"> {{ time.tdateStart | date:'dd.MM.yyyy' }} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="startTime">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Start Time </th>
-      <td mat-cell *matCellDef="let time"> {{ time.tdateStart | date:'HH:mm' }} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="endTime">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> End Time </th>
-      <td mat-cell *matCellDef="let time"> {{ time.tdateEnd | date:'HH:mm' }} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="hoursWorked">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Hours Worked </th>
-      <td mat-cell *matCellDef="let time"> {{ calculateHoursWorked(time.tdateStart, time.tdateEnd) }} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="Site">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Construction-Site </th>
-      <td mat-cell *matCellDef="let time"> {{ constructionSiteMap.get(time.cid) }} </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
-  </table>
-
-  <mat-paginator #paginatorTime [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
-    aria-label="Select page of periodic elements">
-  </mat-paginator>
-</div>

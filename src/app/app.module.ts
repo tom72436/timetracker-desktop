@@ -35,7 +35,7 @@ import { DeleteUserComponent } from './delete-user/delete-user.component';
 import { MatPaginatorModule} from '@angular/material/paginator';
 import { MatTableModule} from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
-import {CookieService} from 'ngx-cookie-service';
+import { CookieService } from 'ngx-cookie-service';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 

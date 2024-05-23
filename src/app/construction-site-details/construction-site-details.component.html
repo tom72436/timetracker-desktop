@@ -1,37 +1,39 @@
 <app-menu-bar></app-menu-bar>
-<div class="mat-elevation-z8">
-  <button (click)="delete(site[0]?.cid)">Baustelle löschen</button>
-  <h1>{{site[0]?.cname}}</h1>
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<div class="container">
+  <h1>Construction site: {{site[0]?.cname}}</h1>
+  <button mat-button style="margin-bottom: 10px;" (click)="delete(site[0]?.cid)">Delete construction site</button>
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-    <!-- Date Column -->
-    <ng-container matColumnDef="date">
-      <th mat-header-cell *matHeaderCellDef> Date </th>
-      <td mat-cell *matCellDef="let element"> {{element.date}} </td>
-    </ng-container>
+      <!-- Date Column -->
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef> Date </th>
+        <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+      </ng-container>
 
-    <!-- Dynamic User Columns -->
-    <ng-container *ngFor="let user of users; let i = index" [matColumnDef]="'user' + i">
-      <th mat-header-cell *matHeaderCellDef> {{user.uname}} </th>
-      <td mat-cell *matCellDef="let element"> {{element['user' + i]}} </td>
-    </ng-container>
+      <!-- Dynamic User Columns -->
+      <ng-container *ngFor="let user of users; let i = index" [matColumnDef]="'user' + i">
+        <th mat-header-cell *matHeaderCellDef> {{user.uname}} </th>
+        <td mat-cell *matCellDef="let element"> {{element['user' + i]}} </td>
+      </ng-container>
 
-    <!-- Daily Sum Column -->
-    <ng-container matColumnDef="dailySum">
-      <th mat-header-cell *matHeaderCellDef> Daily Sum </th>
-      <td mat-cell *matCellDef="let element"> {{element.dailySum}} </td>
-    </ng-container>
+      <!-- Daily Sum Column -->
+      <ng-container matColumnDef="dailySum">
+        <th mat-header-cell *matHeaderCellDef> Daily Sum </th>
+        <td mat-cell *matCellDef="let element"> {{element.dailySum}} </td>
+      </ng-container>
 
-    <!-- Monthly Sum Column -->
-    <ng-container matColumnDef="monthlySum">
-      <th mat-header-cell *matHeaderCellDef> Monthly Sum </th>
-      <td mat-cell *matCellDef="let element"> {{element.monthlySum}} </td>
-    </ng-container>
+      <!-- Monthly Sum Column -->
+      <ng-container matColumnDef="monthlySum">
+        <th mat-header-cell *matHeaderCellDef> Monthly Sum </th>
+        <td mat-cell *matCellDef="let element"> {{element.monthlySum}} </td>
+      </ng-container>
 
-    <!-- Header and Row Declarations -->
-    <tr mat-header-row *matHeaderRowDef="columns"></tr>
-    <tr mat-row *matRowDef="let row; columns: columns;"></tr>
-  </table>
+      <!-- Header and Row Declarations -->
+      <tr mat-header-row *matHeaderRowDef="columns"></tr>
+      <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+    </table>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
 </div>

@@ -1,8 +1,13 @@
 <app-menu-bar></app-menu-bar>
 <mat-tab-nav-panel #tabPanel>
-  <button mat-button (click)="openDialog()">Benutzer hinzufügen</button>
-
-  <div *ngFor="let user of users">
-    <span routerLink="/user-details/{{user.uid}}">{{user.uname}}</span>
+  <div class="container">
+    <h1>Employee management</h1>
+    <button style="margin-bottom: 10px;" mat-button (click)="openDialog()">Add employee</button>
+    <div *ngFor="let user of users">
+      <div style="margin-top: 12px; margin-bottom: 8px;">
+        <span class="font" routerLink="/user-details/{{user.uid}}">{{user.uname}}</span>
+      </div>
+      <mat-divider></mat-divider>
+    </div>
   </div>
 </mat-tab-nav-panel>

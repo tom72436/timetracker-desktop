@@ -1,12 +1,9 @@
 <app-menu-bar></app-menu-bar>
-
 <mat-tab-nav-panel #tabPanel>
-  <div class="margin" *ngIf="user">
-    <h1>{{user[0]?.uname}}</h1>
-    <button mat-button (click)="logout()">Log out</button>
-
-    <div class="center-content">
-
+  <div class="container">
+    <div *ngIf="user">
+      <h1>Logged in as: {{user[0]?.uname}}</h1>
+      <button mat-button style="margin-bottom: 10px;" (click)="logout()">Log out</button>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
@@ -26,6 +23,7 @@
           Add user
         </button>
       </mat-expansion-panel>
+
     </div>
   </div>
 </mat-tab-nav-panel>
