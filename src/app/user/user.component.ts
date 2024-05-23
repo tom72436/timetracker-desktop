@@ -39,6 +39,7 @@ export class UserComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      window.location.reload();
       console.log(`Dialog result: ${result}`);
     });
   }

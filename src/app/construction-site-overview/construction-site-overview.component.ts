@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { Observable, forkJoin } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
@@ -10,13 +12,14 @@ import { tap } from 'rxjs/operators';
   styleUrls: ['./construction-site-overview.component.scss']
 })
 export class ConstructionSiteOverviewComponent implements OnInit {
+  displayedColumns: string[] = ['siteName', 'summe'];
+  dataSource = new MatTableDataSource<any>([]);
   users!: any[];
   sites: any[] = [];
   ipAdress: string = '192.168.120.92';
-  rows: any[] = [];
-  columns: any[] = [{ prop: 'siteName', name: 'Site Name' }, { prop: 'summe', name: 'Summe' }];
-  constructionSiteMap: Map<number, string> = new Map();
   time: any[] = [];
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router) { }
 
@@ -28,7 +31,7 @@ export class ConstructionSiteOverviewComponent implements OnInit {
     this.http.get<any[]>(`http://${this.ipAdress}:3000/api/users`).subscribe(
       (usersResponse) => {
         this.users = usersResponse;
-        this.createColumns();
+        this.updateDisplayedColumns();
 
         this.http.get<any[]>(`http://${this.ipAdress}:3000/api/construction-sites`).subscribe(
           (sitesResponse) => {
@@ -47,18 +50,20 @@ export class ConstructionSiteOverviewComponent implements OnInit {
     );
   }
 
-  createColumns() {
-    this.columns = [{ prop: 'siteName', name: 'Site Name' }, { prop: 'summe', name: 'Summe' }];
+  updateDisplayedColumns() {
+    this.displayedColumns = ['siteName', 'summe'];
     this.users.forEach((user, index) => {
-      this.columns.push({ prop: `user${index}`, name: `${user.uname}` });
+      this.displayedColumns.push(`user${index}`);
     });
   }
 
   createRows() {
-    this.rows = this.sites.map(site => ({
+    const rows = this.sites.map(site => ({
       siteName: site.cname,
       summe: ''
     }));
+    this.dataSource.data = rows;
+    this.dataSource.paginator = this.paginator;
   }
 
   calculateUserHours() {
@@ -66,7 +71,7 @@ export class ConstructionSiteOverviewComponent implements OnInit {
     forkJoin(userTimeObservables).subscribe(() => {
       this.sites.forEach(site => {
         const siteName = site.cname;
-        const row = this.rows.find(r => r.siteName === siteName);
+        const row = this.dataSource.data.find((r: any) => r.siteName === siteName);
         if (row) {
           row.summe = this.calculateTotalHours(site.cid);
           this.users.forEach((user, index) => {
@@ -75,6 +80,7 @@ export class ConstructionSiteOverviewComponent implements OnInit {
           });
         }
       });
+      this.dataSource._updateChangeSubscription(); // Refresh the table
     });
   }
 

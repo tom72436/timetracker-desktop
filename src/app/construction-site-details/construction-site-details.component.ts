@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-construction-site-details',
@@ -12,9 +14,11 @@ export class ConstructionSiteDetailsComponent implements OnInit {
   site: any[] = [];
   ipAdress: string = '192.168.120.92';
   users!: any[];
-  rows: any[] = [];
   columns: any[] = [];
   time: any[] = [];
+  dataSource = new MatTableDataSource<any>([]);
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router) { }
 
@@ -28,7 +32,6 @@ export class ConstructionSiteDetailsComponent implements OnInit {
     this.http.get<any[]>(`http://${this.ipAdress}:3000/api/construction-sites/details?cid=${cid}`).subscribe(
       (response) => {
         this.site = response;
-
       },
       (error) => {
         console.error("Error fetching site details:", error);
@@ -40,7 +43,6 @@ export class ConstructionSiteDetailsComponent implements OnInit {
     if (confirm("Do you want to delete this site?")) {
       this.http.get(`http://${this.ipAdress}:3000/api/construction-sites/delete?cid=${cid}`).subscribe(
         (response: any) => {
-
           this.router.navigate(['/construction-site']);
         },
         (error) => {
@@ -54,7 +56,6 @@ export class ConstructionSiteDetailsComponent implements OnInit {
     this.http.get<any[]>(`http://${this.ipAdress}:3000/api/users`).subscribe(
       (usersResponse) => {
         this.users = usersResponse;
-
         this.createColumns();
 
         this.http.get<any[]>(`http://${this.ipAdress}:3000/api/timetracking/getAllAll`).subscribe(
@@ -80,27 +81,14 @@ export class ConstructionSiteDetailsComponent implements OnInit {
   }
 
   createColumns() {
-
-    this.columns = [{ prop: 'date', name: 'Date' }];
+    this.columns = ['date', 'dailySum', 'monthlySum'];
     this.users.forEach((user, index) => {
-      this.columns.push({ prop: `user${index}`, name: `${user.uname}` });
+      this.columns.splice(1, 0, `user${index}`);
     });
-    this.columns.push({ prop: 'dailySum', name: 'Daily Sum' });
-    this.columns.push({ prop: 'monthlySum', name: 'Monthly Sum' });
-
   }
 
   createRows() {
-
-
-    // Ensure correct filtering
-    const filteredTime = this.time.filter(time => {
-
-      return parseInt(time.cid, 10) === this.cid;
-    });
-
-
-
+    const filteredTime = this.time.filter(time => parseInt(time.cid, 10) === this.cid);
     const uniqueDatesSet = new Set();
     for (const time of filteredTime) {
       const date = new Date(time.tdateStart).toISOString().split('T')[0];
@@ -108,17 +96,17 @@ export class ConstructionSiteDetailsComponent implements OnInit {
     }
     const uniqueDates = Array.from(uniqueDatesSet);
 
-
-    this.rows = uniqueDates.map(date => ({
+    const rows = uniqueDates.map(date => ({
       date: date,
       dailySum: '',
       monthlySum: ''
     }));
-
+    this.dataSource.data = rows;
+    this.dataSource.paginator = this.paginator;
   }
 
   calculateUserHours() {
-    this.rows.forEach(row => {
+    this.dataSource.data.forEach(row => {
       const date = row.date;
       const month = date.substring(0, 7);
       let dailySum = 0;
@@ -136,18 +124,14 @@ export class ConstructionSiteDetailsComponent implements OnInit {
       row.monthlySum = `${Math.floor(monthlySum / 60)} hours ${monthlySum % 60} minutes`;
     });
 
+    this.dataSource._updateChangeSubscription();
   }
 
   calculateHoursForUserAndDate(uid: number, date: string): string {
-
-    const userTimes = [];
-    for (const time of this.time) {
+    const userTimes = this.time.filter(time => {
       const timeDate = new Date(time.tdateStart).toISOString().split('T')[0];
-      if (time.uid === uid && time.cid === this.cid && timeDate === date) {
-        userTimes.push(time);
-      }
-    }
-
+      return time.uid === uid && time.cid === this.cid && timeDate === date;
+    });
 
     const totalMilliseconds = userTimes.reduce((sum, time) => {
       const start = new Date(time.tdateStart).getTime();
@@ -158,16 +142,10 @@ export class ConstructionSiteDetailsComponent implements OnInit {
   }
 
   calculateHoursForUserAndMonth(uid: number, month: string): string {
-
-    const userTimes = [];
-    for (const time of this.time) {
+    const userTimes = this.time.filter(time => {
       const timeMonth = new Date(time.tdateStart).toISOString().split('T')[0].substring(0, 7);
-
-      if (time.uid === uid && time.cid === this.cid && timeMonth === month) {
-        userTimes.push(time);
-      }
-    }
-
+      return time.uid === uid && time.cid === this.cid && timeMonth === month;
+    });
 
     const totalMilliseconds = userTimes.reduce((sum, time) => {
       const start = new Date(time.tdateStart).getTime();

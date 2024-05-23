@@ -36,6 +36,7 @@ export class ConstructionSiteComponent {
     const dialogRef = this.dialog.open(ConstructionSiteAddComponent);
 
     dialogRef.afterClosed().subscribe(result => {
+      window.location.reload();
       console.log(`Dialog result: ${result}`);
     });
   }
